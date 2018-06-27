@@ -12,8 +12,11 @@ class CubicWeightCalculator {
 		return new Promise(async resolve => {
 			while (this.nextEndPoint) {
 				await new Promise((resolve, reject) => {
-					// placing it on an event stack to prevent stack overflow error
-					setTimeout(async () => {
+					//setImmediate uses queue of I/O eventhandlers. If all I/O events in 
+					//the current snapshot are processed, it executes the callback.
+					// It queues them immediately after the last I/O handler
+					// somewhat like process.nextTick. So it is faster
+					setImmediate(async () => {
 						const result = await axios.get(`${this.baseUrl}${this.nextEndPoint}`);
 	
 						if (result.data) {
@@ -28,7 +31,7 @@ class CubicWeightCalculator {
 						} else {
 							reject(new Error('Network error'));
 						}
-					}, 0);
+					});
 				});
 			}
 			resolve(productsInCategory);

@@ -11,10 +11,12 @@ describe('CubicWeightCalculator Local Server', () => {
         const calculatorInstance = new CubicWeightCalculator(nextEndPoint, baseUrl); 
         const res =  await calculatorInstance.fetchProducts('Air Conditioners')
             
-        const totalCubicWeight = res.reduce(calculatorInstance.cubicWeightReducer, 0);
-        expect(totalCubicWeight).toEqual(2500);
+        let totalCubicWeight = res.reduce(calculatorInstance.cubicWeightReducer, 0);
+        totalCubicWeight = Math.round( totalCubicWeight * 1e2 ) / 1e2
+        expect(totalCubicWeight).toEqual(2500)
 
-        const averageCubicWeight = parseFloat(totalCubicWeight / res.length)
+        let averageCubicWeight = totalCubicWeight / res.length
+        averageCubicWeight = Math.round( averageCubicWeight * 1e2 ) / 1e2
         expect(averageCubicWeight).toEqual(0.25);
 
     })

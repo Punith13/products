@@ -10,11 +10,13 @@ describe('CubicWeightCalculator AWS S3', async () => {
 
         const res = await calculatorInstance.fetchProducts('Air Conditioners');
 
-        const totalCubicWeight = res.reduce(calculatorInstance.cubicWeightReducer, 0);
-        expect(totalCubicWeight).toEqual(166.45353875)
+        let totalCubicWeight = res.reduce(calculatorInstance.cubicWeightReducer, 0);
+        totalCubicWeight = Math.round( totalCubicWeight * 1e2 ) / 1e2
+        expect(totalCubicWeight).toEqual(166.45)
 
-        const averageCubicWeight = parseFloat(totalCubicWeight / res.length)
-        expect(averageCubicWeight).toEqual(41.6133846875);
+        let averageCubicWeight = totalCubicWeight / res.length
+        averageCubicWeight = Math.round( averageCubicWeight * 1e2 ) / 1e2
+        expect(averageCubicWeight).toEqual(41.61);
     })
 })
 
