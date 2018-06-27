@@ -1,6 +1,6 @@
 # Average Cubic Weight
 
-Solution to find the average weight of products under Air Conditioner Category in Javascript
+Solution to find the average cubic weight of products under Air Conditioner Category in Javascript
 
 ## Getting Started
 
